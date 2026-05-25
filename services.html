@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes, viewport-fit=cover">
+  <meta name="theme-color" content="#0a0e27">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="format-detection" content="telephone=no">
+  <title>Services - KUNAKA TECH | Web Development, AI & Hosting</title>
+  <meta name="description" content="Professional web development services from Zimbabwe. KUNAKA TECH designs and builds responsive websites, AI tools, hosting, and global digital solutions.">
+  <meta name="keywords" content="web development zimbabwe, website design zimbabwe, zimbabwe web developer, ai consulting, cloud hosting, devops, KUNAKA TECH services">
+  <meta name="author" content="KUNAKA TECH">
+  <meta name="copyright" content="© 2026 KUNAKA TECH. All rights reserved.">
+  <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+  <link rel="canonical" href="https://pkunaka1engineer.me/services.html" />
+  <meta property="og:title" content="Web Development Services Zimbabwe - KUNAKA TECH">
+  <meta property="og:description" content="Professional website design, AI solutions, and hosting services from Zimbabwe. Serving clients across Africa and globally.">
+  <meta property="og:url" content="https://pkunaka1engineer.me/services.html">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="https://pkunaka1engineer.me/services-og.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Web Development Services Zimbabwe | KUNAKA TECH">
+  <meta name="twitter:description" content="Professional web design and development services from Zimbabwe">
+  <meta name="geo.region" content="ZW">
+  <meta name="geo.placename" content="Zimbabwe, Africa">
+  <meta name="language" content="English">
+  <link rel="stylesheet" href="tesla-style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/png" href="../zimflag.png">
+</head>
+<body>
+  <div id="scroll-progress"></div>
+  
+  <nav role="navigation" aria-label="Main navigation">
+    <div class="nav-container">
+      <div class="nav-brand">
+        <a href="index.html" class="logo-link logo-only" title="KUNAKA TECH - Home">
+          <img src="kunaka_tech_logo (3).png" alt="KUNAKA TECH logo" class="site-logo" />
+          <span class="sr-only">KUNAKA TECH</span>
+        </a>
+      </div>
+      <ul id="primary-menu" class="nav-menu">
+        <li><a href="index.html" class="nav-link nav-home" title="Home - Start Page">🏠 Home</a></li>
+        <li><a href="services.html" class="nav-link active" aria-current="page" title="Our Services - Web, AI & Cloud Solutions">Services</a></li>
+        <li><a href="products.html" class="nav-link" title="Our Products - Featured Apps & Tools">Products</a></li>
+        <li><a href="portfolio.html" class="nav-link" title="Portfolio - Recent Projects">Portfolio</a></li>
+        <li><a href="about.html" class="nav-link" title="About KUNAKA TECH">About</a></li>
+        <li><a href="blog.html" class="nav-link" title="Blog - Articles & Insights">Blog</a></li>
+        <li><a href="case-studies.html" class="nav-link" title="Case Studies - Client Success Stories">Cases</a></li>
+        <li><a href="contact.html" class="nav-link nav-cta" title="Contact Us - Get Started Today"><span>📧 Contact</span></a></li>
+      </ul>
+      <button class="menu-toggle" aria-controls="primary-menu" aria-expanded="false" aria-label="Toggle navigation menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </nav>
+
+  <section class="page-hero hero" id="services-hero">
+    <div class="hero-video fullscreen">
+      <video autoplay muted loop playsinline preload="auto" poster="assets/services-hero.jpg">
+        <source src="assets/service.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
+    </div>
+    <div class="hero-content">
+      <h1>Our Services</h1>
+      <p>Enterprise-grade software solutions tailored to your business</p>
+    </div>
+  </section>
+
+  <script>
+    // Ensure the services hero video loops and retries playback if needed
+    document.addEventListener('DOMContentLoaded', function(){
+      const vid = document.querySelector('#services-hero .hero-video.fullscreen video');
+      if (!vid) return;
+      try { vid.loop = true; } catch(e) {}
+
+      vid.addEventListener('ended', function(){ try { vid.currentTime = 0; vid.play(); } catch(e) {} });
+      vid.addEventListener('timeupdate', function(){ if (vid.duration && (vid.duration - vid.currentTime) < 0.35) { try { vid.currentTime = 0; vid.play(); } catch(e) {} } });
+      vid.addEventListener('error', function(){ try { vid.load(); vid.play().catch(()=>{}); } catch(e) {} });
+      setInterval(function(){ if (vid.paused && !vid.seeking) { vid.play().catch(()=>{}); } }, 2000);
+      vid.play().catch(()=>{ vid.muted = true; vid.play().catch(()=>{}); });
+    });
+  </script>
+
+  <section>
+    <div class="section-title">
+      <h2>What We Offer</h2>
+      <p>Services designed for scale, speed, and measurable results</p>
+    </div>
+
+    <div class="cards-grid">
+      <div class="card scroll-reveal">
+        <div class="card-icon">🧠</div>
+        <h3>AI/ML Consulting</h3>
+        <p>Strategic guidance on implementing AI solutions, from proof-of-concept to production deployment.</p>
+        <ul style="list-style: none; padding: 0;">
+          <li>✓ AI Strategy Development</li>
+          <li>✓ Technology Stack Selection</li>
+          <li>✓ ROI Analysis & Planning</li>
+          <li>✓ Team Training & Workshops</li>
+        </ul>
+      </div>
+
+      <div class="card scroll-reveal">
+        <div class="card-icon">⚡</div>
+        <h3>Custom AI Development</h3>
+        <p>End-to-end development of custom AI/ML solutions tailored to your specific business requirements.</p>
+        <ul style="list-style: none; padding: 0;">
+          <li>✓ Neural Network Design</li>
+          <li>✓ Model Training & Optimization</li>
+          <li>✓ API Development & Integration</li>
+          <li>✓ Performance Monitoring</li>
+        </ul>
+      </div>
+
+      <div class="card scroll-reveal">
+        <div class="card-icon">🔗</div>
+        <h3>Blockchain Integration</h3>
+        <p>Secure and scalable blockchain solutions for decentralized applications and smart contracts.</p>
+        <ul style="list-style: none; padding: 0;">
+          <li>✓ Smart Contract Development</li>
+          <li>✓ DApp Architecture</li>
+          <li>✓ Security Auditing</li>
+          <li>✓ Token Economics Design</li>
+        </ul>
+      </div>
+
+      <div class="card scroll-reveal">
+        <div class="card-icon">🚀</div>
+        <h3>Performance Optimization</h3>
+        <p>Optimize existing systems for better performance, scalability, and cost-effectiveness.</p>
+        <ul style="list-style: none; padding: 0;">
+          <li>✓ Model Compression</li>
+          <li>✓ Inference Optimization</li>
+          <li>✓ Cloud Architecture Review</li>
+          <li>✓ Cost Reduction Strategies</li>
+        </ul>
+      </div>
+
+      <div class="card scroll-reveal">
+        <div class="card-icon">🎓</div>
+        <h3>Training & Workshops</h3>
+        <p>Comprehensive training programs to upskill your team in AI/ML technologies and best practices.</p>
+        <ul style="list-style: none; padding: 0;">
+          <li>✓ Custom Curriculum Design</li>
+          <li>✓ Hands-on Workshops</li>
+          <li>✓ Certification Programs</li>
+          <li>✓ Ongoing Mentorship</li>
+        </ul>
+      </div>
+
+      <div class="card scroll-reveal">
+        <div class="card-icon">🔬</div>
+        <h3>Research & Development</h3>
+        <p>Cutting-edge research in quantum computing, advanced neural networks, and emerging AI technologies.</p>
+        <ul style="list-style: none; padding: 0;">
+          <li>✓ Quantum Algorithm Development</li>
+          <li>✓ Novel Architecture Design</li>
+          <li>✓ Research Paper Collaboration</li>
+          <li>✓ Patent Development</li>
+        </ul>
+      </div>
+
+      <div class="card scroll-reveal">
+        <div class="card-icon">🌐</div>
+        <h3>Web Development & Design</h3>
+        <p>Professional website design and development tailored to your brand and business needs.</p>
+        <ul style="list-style: none; padding: 0;">
+          <li>✓ Responsive Web Design</li>
+          <li>✓ Full-Stack Development</li>
+          <li>✓ E-Commerce Solutions</li>
+          <li>✓ SEO Optimization</li>
+        </ul>
+      </div>
+
+      <div class="card scroll-reveal">
+        <div class="card-icon">☁️</div>
+        <h3>Web Hosting & Infrastructure</h3>
+        <p>Reliable and scalable hosting solutions with global coverage and 24/7 support.</p>
+        <ul style="list-style: none; padding: 0;">
+          <li>✓ Cloud Hosting Services</li>
+          <li>✓ Domain Management</li>
+          <li>✓ SSL Certificates & Security</li>
+          <li>✓ 24/7 Technical Support</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="section-title" style="margin-top: 4rem;">
+      <h2>Global Coverage & Reach</h2>
+      <p>Serving businesses and clients across multiple continents</p>
+    </div>
+
+    <div class="cards-grid">
+      <div class="card scroll-reveal"><h3>Zimbabwe</h3><p>Home base and primary market.</p></div>
+      <div class="card scroll-reveal"><h3>South Africa</h3><p>Regional expansion hub.</p></div>
+      <div class="card scroll-reveal"><h3>Zambia</h3><p>Growing tech partnerships.</p></div>
+      <div class="card scroll-reveal"><h3>India</h3><p>Tech collaboration center.</p></div>
+      <div class="card scroll-reveal"><h3>Germany</h3><p>European client base.</p></div>
+      <div class="card scroll-reveal"><h3>United Kingdom</h3><p>International partnerships.</p></div>
+    </div>
+
+    <div class="cta scroll-reveal">
+      <h2>Ready to Transform Your Business?</h2>
+      <p>Let's discuss how our services can accelerate your project</p>
+      <a href="contact.html" class="btn btn-primary">Get Started</a>
+    </div>
+  </section>
+
+  <footer role="contentinfo" class="site-footer">
+    <div class="footer-inner">
+      <a href="index.html" class="footer-logo">KUNAKA TECH</a>
+      <div aria-label="Footer navigation" class="footer-nav">
+        <a href="services.html">Services</a> · <a href="products.html">Products</a> · <a href="portfolio.html">Portfolio</a> · <a href="blog.html">Blog</a> · <a href="case-studies.html">Case Studies</a> · <a href="contact.html">Contact</a>
+      </div>
+      <address class="footer-contact">
+        <a href="mailto:HRmanager@kunakatech.tech">HRmanager@kunakatech.tech</a><br>
+        <a href="tel:+917796787966">+91 7796787966</a>
+      </address>
+      <p>&copy; 2026 KUNAKA TECH. All rights reserved.</p>
+    </div>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "KUNAKA TECH",
+      "url": "https://pkunaka1engineer.me/",
+      "email": "HRmanager@kunakatech.tech",
+      "telephone": "+917796787966"
+    }
+    </script>
+  </footer>
+
+  <!-- Mouse Trail -->
+  <div class="mouse-trail" id="mouseTrail"></div>
+
+  <!-- AI Chat Bubble -->
+  <div class="ai-chat-bubble" onclick="openChatModal()">
+    <span>🤖 Need help? Ask the AI Engineer!</span>
+  </div>
+  <div id="chatModal" class="chat-modal">
+    <div class="chat-header">AI Engineer Chatbot <span onclick="closeChatModal()" style="cursor:pointer;">✖</span></div>
+    <div id="chatMessages" class="chat-messages"></div>
+    <div class="chat-input-row">
+      <input type="text" id="chatInput" placeholder="Type your question..." autocomplete="off" />
+      <button onclick="sendChatMessage()">Send</button>
+    </div>
+  </div>
+
+  <!-- Scripts for Animations and Interactions -->
+  <!-- neural-networks.js removed -->
+  <script src="../potoforiyochaiyo/animations.js"></script>
+  <script src="tesla-interactions.js"></script>
+
+  <!-- Chatbot Script -->
+  <script>
+  function openChatModal() {
+    document.getElementById('chatModal').classList.add('active');
+  }
+  function closeChatModal() {
+    document.getElementById('chatModal').classList.remove('active');
+  }
+  function appendChatMessage(sender, text) {
+    const chatMessages = document.getElementById('chatMessages');
+    const msgDiv = document.createElement('div');
+    msgDiv.innerHTML = `<b>${sender}:</b> ${text}`;
+    chatMessages.appendChild(msgDiv);
+    chatMessages.scrollTop = chatMessages.scrollHeight;
+  }
+  async function sendChatMessage() {
+    const input = document.getElementById('chatInput');
+    const userMsg = input.value.trim();
+    if (!userMsg) return;
+    appendChatMessage('You', userMsg);
+    input.value = '';
+    appendChatMessage('AI', 'Thinking...');
+    setTimeout(() => {
+      const chatMessages = document.getElementById('chatMessages');
+      chatMessages.lastChild.remove();
+      const msg = userMsg.toLowerCase();
+      let aiMsg = "Sorry, we couldn't understand. Try asking about our services, projects, or background!";
+      if (msg.match(/hello|hi|hey|greetings/)) {
+        aiMsg = "Hello! How can I help you today?";
+      } else if (msg.match(/name|who are you|your name/)) {
+        aiMsg = "This is the KUNAKA TECH AI Assistant.";
+      } else if (msg.match(/zimbabwe|where are you from/)) {
+        aiMsg = "KUNAKA TECH originated in Zimbabwe.";
+      } else if (msg.match(/india|where do you live|location|based in/)) {
+        aiMsg = "KUNAKA TECH operates internationally, including India.";
+      } else if (msg.match(/project|projects|work on|what do you do/)) {
+        aiMsg = "We work on AI, quantum computing, blockchain, and web automation projects. Ask for details!";
+      } else if (msg.match(/skills|expertise|what can you do|technical skills|abilities/)) {
+        aiMsg = "Our team has expertise in neural networks, deep learning, computer vision, Python, JavaScript, Rust, quantum computing, blockchain, and WebAssembly.";
+      } else if (msg.match(/ai|machine learning|artificial intelligence/)) {
+        aiMsg = "We specialize in AI and machine learning, including neural networks and deep learning.";
+      } else if (msg.match(/quantum|quantum computing/)) {
+        aiMsg = "Quantum computing is a focus area; we work with quantum algorithms and research.";
+      } else if (msg.match(/blockchain|crypto|smart contract/)) {
+        aiMsg = "We have experience with blockchain technology and smart contracts.";
+      } else if (msg.match(/web automation|automation|automate/)) {
+        aiMsg = "We build web automation tools using Python and JavaScript.";
+      } else if (msg.match(/python/)) {
+        aiMsg = "Python is a primary language used by our team for AI and automation.";
+      } else if (msg.match(/javascript|typescript/)) {
+        aiMsg = "We use JavaScript and TypeScript for web development and automation.";
+      } else if (msg.match(/rust/)) {
+        aiMsg = "Rust is great for performance-critical applications!";
+      } else if (msg.match(/open source|github|contribute/)) {
+        aiMsg = "We contribute to open-source projects and love collaborating!";
+      } else if (msg.match(/mentor|mentoring|teach|help others/)) {
+        aiMsg = "We mentor and support junior engineers and share knowledge.";
+      } else if (msg.match(/contact|how can i contact you|reach you|get in touch/)) {
+        aiMsg = "You can reach us via the contact page!";
+      } else if (msg.match(/hobby|free time|interests|what do you like/)) {
+        aiMsg = "We enjoy exploring new tech, reading, and contributing to open source.";
+      } else if (msg.match(/portfolio|website|about this site/)) {
+        aiMsg = "This website showcases our work! Check out our projects page for more.";
+      } else if (msg.match(/education|study|background|school|degree/)) {
+        aiMsg = "Our team has a strong background in computer science and AI.";
+      } else if (msg.match(/future|plans|goals|what's next/)) {
+        aiMsg = "We're excited about the future of AI, quantum computing, and blockchain!";
+      } else if (msg.match(/thanks|thank you|thx|appreciate/)) {
+        aiMsg = "You're welcome! Let me know if you have more questions.";
+      } else if (msg.match(/bye|goodbye|see you|later/)) {
+        aiMsg = "Goodbye! Have a great day!";
+      } else if (msg.match(/i want to know more|tell me more|more info|details|info/)) {
+        aiMsg = "Sure! You can ask about our services, projects, team, or background.";
+      }
+      appendChatMessage('AI', aiMsg);
+    }, 700);
+  }
+  document.getElementById('chatInput').addEventListener('keydown', function(e) {
+    if (e.key === 'Enter') sendChatMessage();
+  });
+  </script>
+
+  <!-- SEO and Professional Design Scripts -->
+  <script src="../potoforiyochaiyo/seo-optimizer.js"></script>
+  <script src="../potoforiyochaiyo/eeat-schema.js"></script>
+  <script src="../potoforiyochaiyo/professional-design.js"></script>
+</html>

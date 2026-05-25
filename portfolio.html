@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes, viewport-fit=cover">
+  <meta name="theme-color" content="#0a0e27">
+  <meta name="description" content="Portfolio of KUNAKA TECH - A showcase of our best work in web development, AI, and mobile applications.">
+  <meta name="author" content="KUNAKA TECH">
+  <meta name="robots" content="index, follow">
+  <title>Portfolio - KUNAKA TECH</title>
+  <link rel="canonical" href="https://pkunaka1engineer.me/portfolio.html" />
+  <link rel="stylesheet" href="tesla-style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/png" href="../zimflag.png">
+  <style>
+    /* Portfolio Grid & Items */
+    .portfolio-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; margin: 3rem 0; }
+    .portfolio-item { position: relative; overflow: hidden; border-radius: 18px; min-height: 320px; background: rgba(255,255,255,0.05); border: 1px solid rgba(0,217,255,0.18); transition: all 0.3s ease; cursor: pointer; }
+    .portfolio-item:hover { transform: translateY(-8px); border-color: rgba(0,217,255,0.4); box-shadow: 0 20px 50px rgba(0,217,255,0.15); }
+    .portfolio-item img { width: 100%; height: 100%; object-fit: cover; display: block; min-height: 320px; }
+    .portfolio-overlay { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(10,14,39,0.3), rgba(10,14,39,0.95)); color: white; padding: 24px; display: flex; flex-direction: column; justify-content: flex-end; transition: all 0.3s ease; }
+    .portfolio-overlay h3 { margin-bottom: 8px; font-size: 1.3rem; }
+    .portfolio-overlay p { color: rgba(255,255,255,0.78); margin-bottom: 12px; font-size: 0.9rem; }
+    .project-badge { display: inline-block; background: rgba(0,217,255,0.2); color: #00d9ff; padding: 4px 10px; border-radius: 20px; font-size: 0.75rem; font-weight: 600; margin-bottom: 12px; }
+    .project-tech { font-size: 0.8rem; color: rgba(124,58,237,0.8); margin-bottom: 12px; }
+
+    /* Filter Section */
+    .filter-section { margin: 3rem 0; text-align: center; }
+    .filter-section h2 { margin-bottom: 1.5rem; }
+    .filter-buttons { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; }
+    .filter-btn { background: rgba(255,255,255,0.05); color: rgba(255,255,255,0.7); border: 1px solid rgba(0,217,255,0.2); padding: 10px 20px; border-radius: 25px; cursor: pointer; transition: all 0.3s ease; font-weight: 500; }
+    .filter-btn:hover { background: rgba(0,217,255,0.1); color: #00d9ff; border-color: #00d9ff; }
+    .filter-btn.active { background: rgba(0,217,255,0.3); color: #00d9ff; border-color: #00d9ff; box-shadow: 0 0 20px rgba(0,217,255,0.2); }
+
+    /* Portfolio Section */
+    .portfolio-section { margin: 4rem 0; }
+    .portfolio-section h2 { margin-bottom: 2rem; }
+
+    /* Expertise Section */
+    .expertise-section { margin: 5rem 0; padding: 3rem 2rem; background: rgba(0,217,255,0.05); border-radius: 20px; }
+    .expertise-section h2 { margin-bottom: 2rem; text-align: center; }
+    .expertise-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 24px; }
+    .expertise-card { background: rgba(255,255,255,0.05); border: 1px solid rgba(0,217,255,0.2); border-radius: 16px; padding: 2rem; transition: all 0.3s ease; }
+    .expertise-card:hover { background: rgba(124,58,237,0.1); border-color: #7c3aed; transform: translateY(-4px); }
+    .expertise-icon { font-size: 2.5rem; margin-bottom: 1rem; }
+    .expertise-card h3 { margin-bottom: 0.5rem; }
+    .expertise-card p { color: rgba(255,255,255,0.7); font-size: 0.9rem; line-height: 1.6; }
+
+    /* Technologies Section */
+    .technologies-section { margin: 5rem 0; }
+    .technologies-section h2 { margin-bottom: 2rem; text-align: center; }
+    .tech-categories { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; }
+    .tech-category { background: rgba(255,255,255,0.03); border: 1px solid rgba(0,217,255,0.15); border-radius: 16px; padding: 2rem; }
+    .tech-category h3 { margin-bottom: 1rem; color: #00d9ff; font-size: 1.1rem; }
+    .tech-tags { display: flex; flex-wrap: wrap; gap: 10px; }
+    .tech-tag { display: inline-block; background: rgba(0,217,255,0.1); color: #00d9ff; padding: 6px 14px; border-radius: 20px; font-size: 0.85rem; font-weight: 500; border: 1px solid rgba(0,217,255,0.2); transition: all 0.2s; }
+    .tech-tag:hover { background: rgba(0,217,255,0.2); border-color: rgba(0,217,255,0.4); }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .portfolio-item { min-height: 240px; }
+      .portfolio-item img { min-height: 240px; }
+      .filter-buttons { gap: 8px; }
+      .filter-btn { padding: 8px 14px; font-size: 0.9rem; }
+      .expertise-grid { grid-template-columns: 1fr; }
+      .tech-categories { grid-template-columns: 1fr; }
+    }
+
+    /* Hidden class for filtering */
+    .portfolio-item.hidden { display: none; }
+
+    .curiosity-callout { margin: 2rem 0; padding: 1rem 2rem; background: linear-gradient(90deg, #00c3ff, #ffff1c); color: #222; border-radius: 1rem; font-weight: 600; }
+    .ai-chat-bubble { position: fixed; right: 20px; bottom: 20px; z-index: 30; background: #00d9ff; color: #0a0e27; padding: 12px 16px; border-radius: 999px; cursor: pointer; font-weight: 700; }
+    .chat-modal { position: fixed; right: 20px; bottom: 76px; width: min(360px, calc(100vw - 40px)); background: rgba(10,14,39,0.96); border: 1px solid rgba(0,217,255,0.22); border-radius: 16px; display: none; overflow: hidden; z-index: 31; }
+    .chat-modal.active { display: block; }
+    .chat-header { display: flex; justify-content: space-between; padding: 12px 14px; background: rgba(0,217,255,0.08); }
+    .chat-messages { max-height: 260px; overflow: auto; padding: 12px 14px; color: rgba(255,255,255,0.88); }
+    .chat-input-row { display: flex; gap: 8px; padding: 12px 14px; border-top: 1px solid rgba(255,255,255,0.08); }
+    .chat-input-row input { flex: 1; }
+    .chat-input-row button { background: #00d9ff; color: #0a0e27; border: 0; padding: 0 14px; border-radius: 10px; font-weight: 700; }
+    @media (max-width: 768px) { .ai-chat-bubble { right: 12px; bottom: 12px; } .chat-modal { right: 12px; bottom: 68px; } }
+  </style>
+</head>
+<body>
+  <div id="scroll-progress"></div>
+  
+  <nav role="navigation" aria-label="Main navigation">
+    <div class="nav-container">
+      <div class="nav-brand">
+        <a href="index.html" class="logo-link logo-only" title="KUNAKA TECH - Home">
+          <img src="kunaka_tech_logo (3).png" alt="KUNAKA TECH logo" class="site-logo" />
+          <span class="sr-only">KUNAKA TECH</span>
+        </a>
+      </div>
+      <ul id="primary-menu" class="nav-menu">
+        <li><a href="index.html" class="nav-link nav-home" title="Home - Start Page">🏠 Home</a></li>
+        <li><a href="services.html" class="nav-link" title="Our Services - Web, AI & Cloud Solutions">Services</a></li>
+        <li><a href="products.html" class="nav-link" title="Our Products - Featured Apps & Tools">Products</a></li>
+        <li><a href="portfolio.html" class="nav-link active" aria-current="page" title="Portfolio - Recent Projects">Portfolio</a></li>
+        <li><a href="about.html" class="nav-link" title="About KUNAKA TECH">About</a></li>
+        <li><a href="blog.html" class="nav-link" title="Blog - Articles & Insights">Blog</a></li>
+        <li><a href="case-studies.html" class="nav-link" title="Case Studies - Client Success Stories">Cases</a></li>
+        <li><a href="contact.html" class="nav-link nav-cta" title="Contact Us - Get Started Today"><span>📧 Contact</span></a></li>
+      </ul>
+      <button class="menu-toggle" aria-controls="primary-menu" aria-expanded="false" aria-label="Toggle navigation menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </nav>
+
+  <section class="page-hero hero">
+    <div class="hero-photo" style="background-image:url('assets/portfolio-hero.jpg')"></div>
+    <div class="hero-content">
+      <h1>Our Portfolio</h1>
+      <p>Transforming ideas into reality with cutting-edge AI, ML, and web solutions</p>
+    </div>
+  </section>
+
+  <!-- Project Category Filter -->
+  <section class="filter-section">
+    <h2>Filter by Category</h2>
+    <div class="filter-buttons">
+      <button class="filter-btn active" onclick="filterProjects('all')">All Projects</button>
+      <button class="filter-btn" onclick="filterProjects('ai-ml')">AI & Machine Learning</button>
+      <button class="filter-btn" onclick="filterProjects('blockchain')">Blockchain</button>
+      <button class="filter-btn" onclick="filterProjects('web')">Web Development</button>
+      <button class="filter-btn" onclick="filterProjects('mobile')">Mobile Apps</button>
+    </div>
+  </section>
+
+  <!-- Featured Projects Grid -->
+  <section class="portfolio-section">
+    <h2>Featured Projects</h2>
+    <div class="portfolio-grid">
+      <div class="portfolio-item scroll-reveal" data-category="ai-ml">
+        <img src="icon10.jpeg" alt="Quantum Neural Network">
+        <div class="portfolio-overlay">
+          <span class="project-badge">AI & ML</span>
+          <h3>Quantum Neural Network</h3>
+          <p>Revolutionary quantum-classical hybrid neural network leveraging quantum superposition for exponentially faster training on complex datasets.</p>
+          <div class="project-tech">TensorFlow · PyTorch · Quantum</div>
+          <a href="https://form-automation-1qb0.onrender.com" target="_blank" rel="noreferrer" class="btn btn-primary">View Project →</a>
+        </div>
+      </div>
+
+      <div class="portfolio-item scroll-reveal" data-category="blockchain">
+        <img src="icon2.jpeg" alt="DeFi Smart Contracts">
+        <div class="portfolio-overlay">
+          <span class="project-badge">Blockchain</span>
+          <h3>Advanced DeFi Protocol</h3>
+          <p>Smart contract platform using discrete mathematics for family preference matching, enabling secure peer-to-peer recommendations and transactions.</p>
+          <div class="project-tech">Solidity · Ethereum · Web3.js</div>
+          <a href="https://discretemathsapp.onrender.com" target="_blank" rel="noreferrer" class="btn btn-primary">View Project →</a>
+        </div>
+      </div>
+
+      <div class="portfolio-item scroll-reveal" data-category="ai-ml">
+        <img src="medic.jpg" alt="Medical AI Diagnostics">
+        <div class="portfolio-overlay">
+          <span class="project-badge">AI & ML</span>
+          <h3>Medical AI Diagnostics</h3>
+          <p>State-of-the-art computer vision system for early disease detection in medical imaging, deployed across leading healthcare institutions with enterprise-grade reliability.</p>
+          <div class="project-tech">OpenCV · Deep Learning · DICOM</div>
+          <span class="btn btn-primary">Enterprise Deployment</span>
+        </div>
+      </div>
+
+      <div class="portfolio-item scroll-reveal" data-category="ai-ml">
+        <img src="icon1.jpg" alt="Autonomous AI System">
+        <div class="portfolio-overlay">
+          <span class="project-badge">AI & ML</span>
+          <h3>Autonomous AI System</h3>
+          <p>Self-learning robotic system with advanced path planning, real-time object recognition, and autonomous decision-making capabilities in dynamic environments.</p>
+          <div class="project-tech">ROS · Computer Vision · Python</div>
+          <span class="btn btn-primary">Advanced Robotics</span>
+        </div>
+      </div>
+
+      <div class="portfolio-item scroll-reveal" data-category="ai-ml">
+        <img src="icon4.jpg" alt="Multilingual NLP Model">
+        <div class="portfolio-overlay">
+          <span class="project-badge">AI & ML</span>
+          <h3>Multilingual NLP Model</h3>
+          <p>Advanced transformer-based language model supporting multiple languages with context-aware translation, sentiment analysis, and entity recognition capabilities.</p>
+          <div class="project-tech">BERT · Transformers · NLP</div>
+          <span class="btn btn-primary">Language Processing</span>
+        </div>
+      </div>
+
+      <div class="portfolio-item scroll-reveal" data-category="web">
+        <img src="icon7.jpg" alt="WebAssembly ML Runtime">
+        <div class="portfolio-overlay">
+          <span class="project-badge">Web Development</span>
+          <h3>WebAssembly ML Runtime</h3>
+          <p>High-performance machine learning runtime compiled to WebAssembly enabling near-native speed inference in web browsers without backend calls.</p>
+          <div class="project-tech">WebAssembly · Rust · TensorFlow.js</div>
+          <a href="#" class="btn btn-primary">View Project →</a>
+        </div>
+      </div>
+
+      <div class="portfolio-item scroll-reveal" data-category="web">
+        <img src="icon2.jpeg" alt="E-Commerce Platform">
+        <div class="portfolio-overlay">
+          <span class="project-badge">Web Development</span>
+          <h3>Enterprise E-Commerce Platform</h3>
+          <p>Full-stack e-commerce solution with AI-powered product recommendations, real-time inventory management, and seamless payment integration.</p>
+          <div class="project-tech">React · Node.js · MongoDB</div>
+          <span class="btn btn-primary">Live Deployment</span>
+        </div>
+      </div>
+
+      <div class="portfolio-item scroll-reveal" data-category="mobile">
+        <img src="icon4.jpg" alt="Mobile App Development">
+        <div class="portfolio-overlay">
+          <span class="project-badge">Mobile Apps</span>
+          <h3>Cross-Platform Mobile Suite</h3>
+          <p>Native iOS and Android applications with offline-first architecture, real-time synchronization, and exceptional user ratings across app stores.</p>
+          <div class="project-tech">React Native · Swift · Kotlin</div>
+          <span class="btn btn-primary">App Store Featured</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Company Expertise Section -->
+  <section class="expertise-section">
+    <h2>Our Expertise Across Industries</h2>
+    <div class="expertise-grid">
+      <div class="expertise-card">
+        <div class="expertise-icon">🏥</div>
+        <h3>Healthcare & Medical</h3>
+        <p>AI diagnostics, patient management systems, telemedicine platforms with HIPAA compliance and real-time monitoring solutions.</p>
+      </div>
+      <div class="expertise-card">
+        <div class="expertise-icon">💰</div>
+        <h3>Financial Services</h3>
+        <p>Fintech platforms, blockchain solutions, AI-driven trading systems, and secure payment gateways serving financial institutions globally.</p>
+      </div>
+      <div class="expertise-card">
+        <div class="expertise-icon">🛍️</div>
+        <h3>Retail & E-Commerce</h3>
+        <p>Smart recommendation engines, inventory optimization, personalized shopping experiences, and omnichannel solutions.</p>
+      </div>
+      <div class="expertise-card">
+        <div class="expertise-icon">🎓</div>
+        <h3>Education & EdTech</h3>
+        <p>Interactive learning platforms, AI tutoring systems, curriculum management, and adaptive assessment tools for educational institutions worldwide.</p>
+      </div>
+      <div class="expertise-card">
+        <div class="expertise-icon">🏭</div>
+        <h3>Manufacturing & IoT</h3>
+        <p>Industrial IoT solutions, predictive maintenance systems, supply chain optimization, and real-time monitoring dashboards.</p>
+      </div>
+      <div class="expertise-card">
+        <div class="expertise-icon">🌐</div>
+        <h3>Enterprise & SaaS</h3>
+        <p>Scalable cloud infrastructure, microservices architecture, API platforms, and enterprise-grade security solutions.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Technologies Section -->
+  <section class="technologies-section">
+    <h2>Technologies We Master</h2>
+    <div class="tech-categories">
+      <div class="tech-category">
+        <h3>Artificial Intelligence & Machine Learning</h3>
+        <div class="tech-tags">
+          <span class="tech-tag">TensorFlow</span>
+          <span class="tech-tag">PyTorch</span>
+          <span class="tech-tag">OpenCV</span>
+          <span class="tech-tag">scikit-learn</span>
+          <span class="tech-tag">Keras</span>
+          <span class="tech-tag">NLP</span>
+          <span class="tech-tag">Computer Vision</span>
+          <span class="tech-tag">LLMs</span>
+        </div>
+      </div>
+      <div class="tech-category">
+        <h3>Web & Frontend Development</h3>
+        <div class="tech-tags">
+          <span class="tech-tag">React</span>
+          <span class="tech-tag">Vue.js</span>
+          <span class="tech-tag">Angular</span>
+          <span class="tech-tag">TypeScript</span>
+          <span class="tech-tag">Next.js</span>
+          <span class="tech-tag">WebAssembly</span>
+          <span class="tech-tag">Tailwind CSS</span>
+          <span class="tech-tag">D3.js</span>
+        </div>
+      </div>
+      <div class="tech-category">
+        <h3>Backend & Cloud</h3>
+        <div class="tech-tags">
+          <span class="tech-tag">Node.js</span>
+          <span class="tech-tag">Python</span>
+          <span class="tech-tag">Go</span>
+          <span class="tech-tag">Rust</span>
+          <span class="tech-tag">AWS</span>
+          <span class="tech-tag">Google Cloud</span>
+          <span class="tech-tag">Docker</span>
+          <span class="tech-tag">Kubernetes</span>
+        </div>
+      </div>
+      <div class="tech-category">
+        <h3>Blockchain & Web3</h3>
+        <div class="tech-tags">
+          <span class="tech-tag">Solidity</span>
+          <span class="tech-tag">Ethereum</span>
+          <span class="tech-tag">Web3.js</span>
+          <span class="tech-tag">Smart Contracts</span>
+          <span class="tech-tag">DeFi</span>
+          <span class="tech-tag">NFTs</span>
+          <span class="tech-tag">Polygon</span>
+          <span class="tech-tag">DAOs</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="curiosity-callout">
+    <span>🚀 Ready to transform your ideas into reality? <a href="contact.html" target="_blank" rel="noreferrer" style="color:#0f2027;text-decoration:underline;font-weight:700;">Let's collaborate with KUNAKA TECH!</a></span>
+  </div>
+
+  <div class="ai-chat-bubble" onclick="openChatModal()"><span>🤖 Need help? Ask the AI Engineer!</span></div>
+  <div id="chatModal" class="chat-modal">
+    <div class="chat-header">AI Engineer Chatbot <span onclick="closeChatModal()" style="cursor:pointer;">✖</span></div>
+    <div id="chatMessages" class="chat-messages"></div>
+    <div class="chat-input-row"><input type="text" id="chatInput" placeholder="Type your question..." autocomplete="off" /><button onclick="sendChatMessage()">Send</button></div>
+  </div>
+
+  <footer role="contentinfo" class="site-footer">
+    <div class="footer-inner">
+      <a href="index.html" class="footer-logo">KUNAKA TECH</a>
+      <div aria-label="Footer navigation" class="footer-nav"><a href="services.html">Services</a> · <a href="products.html">Products</a> · <a href="portfolio.html">Portfolio</a> · <a href="blog.html">Blog</a> · <a href="case-studies.html">Case Studies</a> · <a href="contact.html">Contact</a></div>
+      <address class="footer-contact"><a href="mailto:HRmanager@kunakatech.tech">HRmanager@kunakatech.tech</a><br><a href="tel:+917796787966">+91 7796787966</a></address>
+      <p>&copy; 2026 KUNAKA TECH. All rights reserved.</p>
+    </div>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"KUNAKA TECH","url":"https://pkunaka1engineer.me/","email":"HRmanager@kunakatech.tech","telephone":"+917796787966","sameAs":["https://x.com/KunakaTech","https://www.linkedin.com/company/kunaka-tech/","https://www.facebook.com/profile.php?id=61590330900895"]}</script>
+  </footer>
+
+  <!-- Mouse Trail -->
+  <div class="mouse-trail" id="mouseTrail"></div>
+
+  <!-- Scripts for Animations and Interactions -->
+  <!-- neural-networks.js removed -->
+  <script src="../potoforiyochaiyo/animations.js"></script>
+  <script src="tesla-interactions.js"></script>
+
+  <!-- Comprehensive Scripts -->
+  <script>
+    // Project Filter Functionality
+    function filterProjects(category) {
+      const items = document.querySelectorAll('.portfolio-item');
+      const buttons = document.querySelectorAll('.filter-btn');
+      
+      // Update active button
+      buttons.forEach(btn => btn.classList.remove('active'));
+      event.target.classList.add('active');
+      
+      // Filter items
+      items.forEach(item => {
+        if (category === 'all' || item.dataset.category === category) {
+          item.classList.remove('hidden');
+          setTimeout(() => item.style.opacity = '1', 10);
+        } else {
+          item.style.opacity = '0';
+          setTimeout(() => item.classList.add('hidden'), 300);
+        }
+      });
+    }
+
+    // Chat Modal Functions
+    function openChatModal() { document.getElementById('chatModal').classList.add('active'); }
+    function closeChatModal() { document.getElementById('chatModal').classList.remove('active'); }
+    function appendChatMessage(sender, text) { const chatMessages = document.getElementById('chatMessages'); const msgDiv = document.createElement('div'); msgDiv.innerHTML = `<b>${sender}:</b> ${text}`; chatMessages.appendChild(msgDiv); chatMessages.scrollTop = chatMessages.scrollHeight; }
+    async function sendChatMessage() { 
+      const input = document.getElementById('chatInput'); 
+      const userMsg = input.value.trim(); 
+      if (!userMsg) return; 
+      appendChatMessage('You', userMsg); 
+      input.value = ''; 
+      appendChatMessage('AI', 'Thinking...'); 
+      setTimeout(() => { 
+        const chatMessages = document.getElementById('chatMessages'); 
+        chatMessages.lastChild.remove(); 
+        const msg = userMsg.toLowerCase(); 
+        let aiMsg = "That's a great question! Ask me about our projects, technologies, or how we can help your business!"; 
+        if (msg.match(/hello|hi|hey|greetings/)) { aiMsg = "Hello! Welcome to KUNAKA TECH. How can I help you today?"; } 
+        else if (msg.match(/kunaka|company|about/)) { aiMsg = "KUNAKA TECH is a professional software development company from Zimbabwe specializing in AI, ML, blockchain, and enterprise solutions."; } 
+        else if (msg.match(/project|portfolio|work/)) { aiMsg = "We have delivered projects across AI diagnostics, DeFi protocols, enterprise platforms, and more. Check our portfolio!"; } 
+        else if (msg.match(/technology|tech stack|tools/)) { aiMsg = "We specialize in TensorFlow, PyTorch, React, Node.js, Solidity, Kubernetes, and many other technologies."; } 
+        else if (msg.match(/ai|machine learning|ml/)) { aiMsg = "Our AI & ML expertise includes computer vision, NLP, neural networks, and quantum computing applications."; } 
+        else if (msg.match(/blockchain|web3|crypto|defi/)) { aiMsg = "We build smart contracts, DeFi protocols, and blockchain solutions using Solidity and Web3 technologies."; } 
+        else if (msg.match(/web|frontend|app/)) { aiMsg = "We create responsive web apps with React, Vue, Angular, and beautiful UX designs."; } 
+        else if (msg.match(/contact|hire|work with us|project/)) { aiMsg = "We'd love to work with you! Visit our contact page or email HRmanager@kunakatech.tech"; } 
+        else if (msg.match(/price|cost|budget/)) { aiMsg = "Our pricing varies based on project scope. Contact us for a custom quote!"; } 
+        else if (msg.match(/time|duration|how long/)) { aiMsg = "Most projects take 3-6 months. We work with agile methodology for faster delivery."; } 
+        else if (msg.match(/team|size|people/)) { aiMsg = "Our teams are 5-12 specialists including architects, ML engineers, and QA experts."; } 
+        else if (msg.match(/industries|sectors|verticals/)) { aiMsg = "We serve healthcare, finance, retail, education, manufacturing, and enterprise clients globally."; } 
+        else if (msg.match(/where|location|zimbabwe|africa/)) { aiMsg = "KUNAKA TECH is based in Zimbabwe with an international client base."; } 
+        else if (msg.match(/support|help|issue/)) { aiMsg = "We offer 24/7 support for all our clients. Contact our team for assistance!"; } 
+        else if (msg.match(/thanks|thank you|appreciate/)) { aiMsg = "You're welcome! Any other questions about KUNAKA TECH?"; } 
+        else if (msg.match(/bye|goodbye|later/)) { aiMsg = "Thanks for visiting! Feel free to reach out anytime."; } 
+        appendChatMessage('KUNAKA TECH AI', aiMsg); 
+      }, 700); 
+    }
+    document.getElementById('chatInput').addEventListener('keydown', function(e) { if (e.key === 'Enter') sendChatMessage(); });
+  </script>
+
+  <!-- SEO and Professional Design Scripts -->
+  <script src="../potoforiyochaiyo/seo-optimizer.js"></script>
+  <script src="../potoforiyochaiyo/eeat-schema.js"></script>
+  <script src="../potoforiyochaiyo/professional-design.js"></script>
+</body>
+</html>
