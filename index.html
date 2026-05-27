@@ -474,15 +474,15 @@
   </footer>
 
   <!-- AI Chat Bubble -->
-  <div class="ai-chat-bubble" onclick="openChatModal()">
+  <div class="ai-chat-bubble">
     <span>🤖 Need help? Ask the AI Engineer!</span>
   </div>
   <div id="chatModal" class="chat-modal">
-    <div class="chat-header">AI Engineer Chatbot <span onclick="closeChatModal()" style="cursor:pointer;">✖</span></div>
+    <div class="chat-header">AI Engineer Chatbot <span id="chatCloseBtn" style="cursor:pointer;">✖</span></div>
     <div id="chatMessages" class="chat-messages"></div>
     <div class="chat-input-row">
       <input type="text" id="chatInput" placeholder="Type your question..." autocomplete="off" />
-      <button onclick="sendChatMessage()">Send</button>
+      <button id="chatSendBtn">Send</button>
     </div>
   </div>
 

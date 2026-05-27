@@ -382,6 +382,18 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   };
 
+    // Global chat UI wiring (works across pages)
+    (function(){
+      const bubble = document.querySelector('.ai-chat-bubble');
+      const modal = document.getElementById('chatModal');
+      const closeBtn = document.getElementById('chatCloseBtn') || (modal && modal.querySelector('.chat-header span'));
+      const sendBtn = document.getElementById('chatSendBtn') || (modal && modal.querySelector('.chat-input-row button'));
+      if (bubble && modal) bubble.addEventListener('click', () => modal.classList.add('active'));
+      if (closeBtn && modal) closeBtn.addEventListener('click', () => modal.classList.remove('active'));
+      if (sendBtn) sendBtn.addEventListener('click', () => {
+        if (typeof window.sendChatMessage === 'function') window.sendChatMessage();
+      });
+    })();
   const chatInput = document.getElementById('chatInput');
   if (chatInput) {
     // Removed duplicate Enter key listener
