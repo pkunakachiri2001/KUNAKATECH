@@ -338,6 +338,22 @@ nav[aria-label="Main navigation"].scrolled {
 .contact-info-card .contact-methods { margin-top:12px; }
 .contact-info-card dt { font-weight:700; margin-top:12px; }
 .contact-info-card dd { margin:4px 0 8px 0; color:var(--text-muted); }
+/* Make contact detail links stand out for accessibility and visibility */
+.contact-info-card dd a,
+.footer-contact a {
+  color: var(--accent-cyan);
+  font-weight: 700;
+  font-size: 1.05rem;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  transition: color 160ms ease, text-shadow 160ms ease, transform 160ms ease;
+}
+.contact-info-card dd a:hover,
+.footer-contact a:hover {
+  color: var(--accent-purple);
+  text-shadow: 0 6px 18px rgba(0,217,255,0.09);
+  transform: translateY(-1px);
+}
 .divider { height:1px; background:linear-gradient(90deg, rgba(255,255,255,0.02), rgba(255,255,255,0.04)); margin:1rem 0; }
 .services-list { list-style: none; padding:0; margin:0; display:grid; gap:6px; color:var(--text-muted); }
 .social-links { display:flex; gap:8px; flex-wrap:wrap; }
