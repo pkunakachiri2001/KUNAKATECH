@@ -326,28 +326,53 @@ document.addEventListener('DOMContentLoaded', function() {
   // ===== COUNTER ANIMATION =====
   const counters = document.querySelectorAll('[data-target]');
   counters.forEach(counter => {
-    const target = parseInt(counter.dataset.target);
-    const increment = target / 100;
-    let current = 0;
+    const target = parseInt(counter.dataset.target, 10);
+    if (Number.isNaN(target) || target <= 0) return;
 
-    const updateCounter = () => {
-      current += increment;
-      if (current < target) {
-        counter.textContent = Math.ceil(current) + '+';
-        setTimeout(updateCounter, 50);
-      } else {
-        counter.textContent = target + '+';
-      }
+    const animateCounter = () => {
+      let current = 0;
+      const increment = Math.max(1, Math.ceil(target / 100));
+
+      const updateCounter = () => {
+        current += increment;
+        if (current < target) {
+          counter.textContent = `${current}+`;
+          window.setTimeout(updateCounter, 50);
+        } else {
+          counter.textContent = `${target}+`;
+        }
+      };
+
+      updateCounter();
     };
 
+    const counterObserver = new IntersectionObserver(entries => {
+      if (entries[0].isIntersecting) {
+        animateCounter();
+        counterObserver.unobserve(counter);
+      }
+    });
 
-  // ===== GEMINI CHATBOT OVERRIDE =====
+    counterObserver.observe(counter);
+  });
+
+  // ===== CHATBOT WIRING =====
   const GEMINI_SYSTEM_PROMPT = [
     'You are the KUNAKA TECH AI assistant.',
     'Answer naturally, helpfully, and concisely.',
     'Use the company website context when relevant, but otherwise do your best to answer user questions.',
     'Do not refuse to answer except when the user explicitly requests illegal, dangerous, or harmful instructions — in that case refuse briefly and offer a safe alternative or safer guidance.'
   ].join(' ');
+
+  window.openChatModal = function() {
+    const modal = document.getElementById('chatModal');
+    if (modal) modal.classList.add('active');
+  };
+
+  window.closeChatModal = function() {
+    const modal = document.getElementById('chatModal');
+    if (modal) modal.classList.remove('active');
+  };
 
   window.sendChatMessage = async function() {
     const input = document.getElementById('chatInput');
@@ -377,37 +402,26 @@ document.addEventListener('DOMContentLoaded', function() {
       appendChatMessage('AI', reply.replace(/\n/g, '<br>'));
     } catch (error) {
       thinkingNode.remove();
-      appendChatMessage('AI', 'Sorry, I could not reach the Gemini API right now. Please try again in a moment.');
+      appendChatMessage('AI', 'Sorry, I could not reach the AI service right now. Please try again in a moment.');
       console.error('Gemini chat error:', error);
     }
   };
 
-    // Global chat UI wiring (works across pages)
-    (function(){
-      const bubble = document.querySelector('.ai-chat-bubble');
-      const modal = document.getElementById('chatModal');
-      const closeBtn = document.getElementById('chatCloseBtn') || (modal && modal.querySelector('.chat-header span'));
-      const sendBtn = document.getElementById('chatSendBtn') || (modal && modal.querySelector('.chat-input-row button'));
-      if (bubble && modal) bubble.addEventListener('click', () => modal.classList.add('active'));
-      if (closeBtn && modal) closeBtn.addEventListener('click', () => modal.classList.remove('active'));
-      if (sendBtn) sendBtn.addEventListener('click', () => {
-        if (typeof window.sendChatMessage === 'function') window.sendChatMessage();
-      });
-    })();
-  const chatInput = document.getElementById('chatInput');
-  if (chatInput) {
-    // Removed duplicate Enter key listener
-  }
-    // Start animation when visible
-    const counterObserver = new IntersectionObserver(entries => {
-      if (entries[0].isIntersecting) {
-        updateCounter();
-        counterObserver.unobserve(counter);
-      }
-    });
+  (function(){
+    const bubble = document.querySelector('.ai-chat-bubble');
+    const closeBtn = document.getElementById('chatCloseBtn');
+    const sendBtn = document.getElementById('chatSendBtn');
+    const input = document.getElementById('chatInput');
 
-    counterObserver.observe(counter);
-  });
+    if (bubble) bubble.addEventListener('click', window.openChatModal);
+    if (closeBtn) closeBtn.addEventListener('click', window.closeChatModal);
+    if (sendBtn) sendBtn.addEventListener('click', window.sendChatMessage);
+    if (input) {
+      input.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter') window.sendChatMessage();
+      });
+    }
+  })();
 
   // ===== SCROLL PROGRESS BAR =====
   const scrollProgressBar = document.getElementById('scroll-progress');
