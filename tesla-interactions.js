@@ -4,11 +4,11 @@
    ============================================ */
 
 document.addEventListener('DOMContentLoaded', function() {
-  const GEMINI_MODEL = 'gemini-1.5-flash';
+  const GROQ_MODEL = 'llama-3.1-70b-versatile';
   const GEMINI_PROXY_URL = window.KUNAKA_CHAT_API_URL || '';
-  const GEMINI_API_KEY = window.KUNAKA_GEMINI_API_KEY || '';
-  const GEMINI_API_URL = GEMINI_API_KEY
-    ? `https://generativelanguage.googleapis.com/v1beta/models/${GEMINI_MODEL}:generateContent?key=${GEMINI_API_KEY}`
+  const GROQ_API_KEY = window.KUNAKA_GROQ_API_KEY || '';
+  const GROQ_API_URL = GROQ_API_KEY
+    ? 'https://api.groq.com/openai/v1/chat/completions'
     : '';
 
   async function askGemini(promptText) {
@@ -19,7 +19,7 @@ document.addEventListener('DOMContentLoaded', function() {
         body: JSON.stringify({
           prompt: promptText,
           systemPrompt: 'You are the KUNAKA TECH AI assistant. Answer naturally, helpfully, and concisely.',
-          model: GEMINI_MODEL,
+          model: GROQ_MODEL,
         }),
       });
 
@@ -35,32 +35,34 @@ document.addEventListener('DOMContentLoaded', function() {
       return proxyText;
     }
 
-    if (!GEMINI_API_KEY || !GEMINI_API_URL) {
-      throw new Error('Gemini is not configured');
+    if (!GROQ_API_KEY || !GROQ_API_URL) {
+      throw new Error('Groq is not configured');
     }
 
-    const response = await fetch(GEMINI_API_URL, {
+    const response = await fetch(GROQ_API_URL, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${GROQ_API_KEY}`,
+      },
       body: JSON.stringify({
-        contents: [{ role: 'user', parts: [{ text: promptText }] }],
-        generationConfig: {
-          temperature: 0.7,
-          maxOutputTokens: 512,
-          topP: 0.95,
-          topK: 40
-        }
+        model: GROQ_MODEL,
+        messages: [{ role: 'user', content: promptText }],
+        temperature: 0.7,
+        max_tokens: 512,
+        top_p: 0.95,
+        stream: false,
       })
     });
 
     if (!response.ok) {
-      throw new Error(`Gemini request failed: ${response.status}`);
+      throw new Error(`Groq request failed: ${response.status}`);
     }
 
     const data = await response.json();
-    const text = data?.candidates?.[0]?.content?.parts?.map(part => part.text || '').join('')?.trim();
+    const text = data?.choices?.[0]?.message?.content?.trim();
     if (!text) {
-      throw new Error('Gemini returned an empty response');
+      throw new Error('Groq returned an empty response');
     }
     return text;
   }
