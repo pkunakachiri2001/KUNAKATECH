@@ -17,10 +17,11 @@ export default async function handler(req, res) {
     return;
   }
 
-  const key = process.env.GEMINI_API_KEY;
+  // Support either a GEMINI API key or a GROQ key (set `GROQ_API_KEY`)
+  const key = process.env.GEMINI_API_KEY || process.env.GROQ_API_KEY;
   if (!key) {
     res.writeHead(500, { ...corsHeaders, 'Content-Type': 'application/json' });
-    res.end(JSON.stringify({ error: 'Missing GEMINI_API_KEY environment variable' }));
+    res.end(JSON.stringify({ error: 'Missing GEMINI_API_KEY or GROQ_API_KEY environment variable' }));
     return;
   }
 
