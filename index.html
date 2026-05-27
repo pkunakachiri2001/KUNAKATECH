@@ -439,10 +439,11 @@
     </div>
 
     <form class="contact-form scroll-reveal" action="https://formspree.io/f/xvzyvedp" method="POST">
-      <input type="text" placeholder="Your Name" required>
-      <input type="email" placeholder="Your Email" required>
-      <input type="tel" placeholder="Your Phone" required>
-      <textarea placeholder="Tell us about your project" rows="5" required></textarea>
+      <input type="text" name="name" placeholder="Your Name" required>
+      <input type="email" name="email" placeholder="Your Email" required>
+      <input type="tel" name="phone" placeholder="Your Phone" required>
+      <textarea name="message" placeholder="Tell us about your project" rows="5" required></textarea>
+      <div id="formStatus" class="form-status sr-only" role="status" aria-live="polite"></div>
       <button type="submit" class="btn btn-primary" style="width: 100%;">Send Message</button>
     </form>
   </section>
