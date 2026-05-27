@@ -46,3 +46,23 @@ If your repo keeps the site inside `KUNAKATECH/` and GitHub Pages only allows ro
 
 - `.nojekyll` is included to avoid accidental Jekyll processing.
 - Local video/assets are already referenced with relative paths under `assets/`.
+
+## Gemini chatbot production setup
+
+GitHub Pages cannot safely store the Gemini API key, so the chatbot uses a separate Cloudflare Worker proxy.
+
+1. Deploy the Worker in `gemini-proxy/`.
+2. Set the Worker secret:
+
+```powershell
+wrangler secret put GEMINI_API_KEY
+```
+
+3. Deploy the Worker:
+
+```powershell
+wrangler deploy
+```
+
+4. Update `chat-config.js` with the deployed Worker URL.
+5. Commit and push the updated `chat-config.js` only after the Worker is live.

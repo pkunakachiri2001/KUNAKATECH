@@ -4,13 +4,39 @@
    ============================================ */
 
 document.addEventListener('DOMContentLoaded', function() {
-  const GEMINI_API_KEY = window.KUNAKA_GEMINI_API_KEY || '';
   const GEMINI_MODEL = 'gemini-1.5-flash';
-  const GEMINI_API_URL = `https://generativelanguage.googleapis.com/v1beta/models/${GEMINI_MODEL}:generateContent?key=${GEMINI_API_KEY}`;
+  const GEMINI_PROXY_URL = window.KUNAKA_CHAT_API_URL || '';
+  const GEMINI_API_KEY = window.KUNAKA_GEMINI_API_KEY || '';
+  const GEMINI_API_URL = GEMINI_API_KEY
+    ? `https://generativelanguage.googleapis.com/v1beta/models/${GEMINI_MODEL}:generateContent?key=${GEMINI_API_KEY}`
+    : '';
 
   async function askGemini(promptText) {
-    if (!GEMINI_API_KEY) {
-      throw new Error('Gemini API key is not configured');
+    if (GEMINI_PROXY_URL) {
+      const proxyResponse = await fetch(GEMINI_PROXY_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          prompt: promptText,
+          systemPrompt: 'You are the KUNAKA TECH AI assistant. Answer naturally, helpfully, and concisely.',
+          model: GEMINI_MODEL,
+        }),
+      });
+
+      if (!proxyResponse.ok) {
+        throw new Error(`Gemini proxy failed: ${proxyResponse.status}`);
+      }
+
+      const proxyData = await proxyResponse.json();
+      const proxyText = String(proxyData?.reply || '').trim();
+      if (!proxyText) {
+        throw new Error('Gemini proxy returned an empty response');
+      }
+      return proxyText;
+    }
+
+    if (!GEMINI_API_KEY || !GEMINI_API_URL) {
+      throw new Error('Gemini is not configured');
     }
 
     const response = await fetch(GEMINI_API_URL, {

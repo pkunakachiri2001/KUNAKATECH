@@ -1,0 +1,1 @@
+window.KUNAKA_CHAT_API_URL = '';
