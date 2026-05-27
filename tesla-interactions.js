@@ -345,8 +345,8 @@ document.addEventListener('DOMContentLoaded', function() {
   const GEMINI_SYSTEM_PROMPT = [
     'You are the KUNAKA TECH AI assistant.',
     'Answer naturally, helpfully, and concisely.',
-    'Use the company website context when relevant, but otherwise answer any user question.',
-    'If a request is unsafe, refuse briefly and offer a safe alternative.'
+    'Use the company website context when relevant, but otherwise do your best to answer user questions.',
+    'Do not refuse to answer except when the user explicitly requests illegal, dangerous, or harmful instructions — in that case refuse briefly and offer a safe alternative or safer guidance.'
   ].join(' ');
 
   window.sendChatMessage = async function() {
