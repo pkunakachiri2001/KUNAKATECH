@@ -4,6 +4,42 @@
    ============================================ */
 
 document.addEventListener('DOMContentLoaded', function() {
+  const GEMINI_API_KEY = window.KUNAKA_GEMINI_API_KEY || '';
+  const GEMINI_MODEL = 'gemini-1.5-flash';
+  const GEMINI_API_URL = `https://generativelanguage.googleapis.com/v1beta/models/${GEMINI_MODEL}:generateContent?key=${GEMINI_API_KEY}`;
+
+  async function askGemini(promptText) {
+    if (!GEMINI_API_KEY) {
+      throw new Error('Gemini API key is not configured');
+    }
+
+    const response = await fetch(GEMINI_API_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        contents: [{ role: 'user', parts: [{ text: promptText }] }],
+        generationConfig: {
+          temperature: 0.7,
+          maxOutputTokens: 512,
+          topP: 0.95,
+          topK: 40
+        }
+      })
+    });
+
+    if (!response.ok) {
+      throw new Error(`Gemini request failed: ${response.status}`);
+    }
+
+    const data = await response.json();
+    const text = data?.candidates?.[0]?.content?.parts?.map(part => part.text || '').join('')?.trim();
+    if (!text) {
+      throw new Error('Gemini returned an empty response');
+    }
+    return text;
+  }
+
+  window.askGemini = askGemini;
   
   // ===== SCROLL REVEAL ANIMATION =====
   const observerOptions = {
@@ -276,6 +312,52 @@ document.addEventListener('DOMContentLoaded', function() {
       }
     };
 
+
+  // ===== GEMINI CHATBOT OVERRIDE =====
+  const GEMINI_SYSTEM_PROMPT = [
+    'You are the KUNAKA TECH AI assistant.',
+    'Answer naturally, helpfully, and concisely.',
+    'Use the company website context when relevant, but otherwise answer any user question.',
+    'If a request is unsafe, refuse briefly and offer a safe alternative.'
+  ].join(' ');
+
+  window.sendChatMessage = async function() {
+    const input = document.getElementById('chatInput');
+    const chatMessages = document.getElementById('chatMessages');
+    if (!input || !chatMessages) return;
+
+    const userMsg = input.value.trim();
+    if (!userMsg) return;
+
+    const appendChatMessage = (sender, text) => {
+      const msgDiv = document.createElement('div');
+      msgDiv.innerHTML = `<b>${sender}:</b> ${text}`;
+      chatMessages.appendChild(msgDiv);
+      chatMessages.scrollTop = chatMessages.scrollHeight;
+    };
+
+    appendChatMessage('You', userMsg);
+    input.value = '';
+    const thinkingNode = document.createElement('div');
+    thinkingNode.innerHTML = '<b>AI:</b> Thinking...';
+    chatMessages.appendChild(thinkingNode);
+    chatMessages.scrollTop = chatMessages.scrollHeight;
+
+    try {
+      const reply = await window.askGemini(`${GEMINI_SYSTEM_PROMPT}\n\nUser: ${userMsg}`);
+      thinkingNode.remove();
+      appendChatMessage('AI', reply.replace(/\n/g, '<br>'));
+    } catch (error) {
+      thinkingNode.remove();
+      appendChatMessage('AI', 'Sorry, I could not reach the Gemini API right now. Please try again in a moment.');
+      console.error('Gemini chat error:', error);
+    }
+  };
+
+  const chatInput = document.getElementById('chatInput');
+  if (chatInput) {
+    // Removed duplicate Enter key listener
+  }
     // Start animation when visible
     const counterObserver = new IntersectionObserver(entries => {
       if (entries[0].isIntersecting) {
