@@ -4,7 +4,7 @@
    ============================================ */
 
 document.addEventListener('DOMContentLoaded', function() {
-  const GROQ_MODEL = 'llama-3.1-70b-versatile';
+  const GROQ_MODEL = 'llama-3.1-8b-instant';
   const GEMINI_PROXY_URL = window.KUNAKA_CHAT_API_URL || '';
   const GROQ_API_KEY = window.KUNAKA_GROQ_API_KEY || '';
   const GROQ_API_URL = GROQ_API_KEY

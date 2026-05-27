@@ -45,7 +45,7 @@ export default async function handler(req, res) {
     return;
   }
 
-  const model = payload.model || 'llama-3.1-70b-versatile';
+  const model = payload.model || 'llama-3.1-8b-instant';
   const systemPrompt = payload.systemPrompt || 'You are the KUNAKA TECH AI assistant. Answer naturally, helpfully, and concisely.';
 
   try {
