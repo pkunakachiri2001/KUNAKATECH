@@ -145,17 +145,16 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   }
 
-  // ===== FORM VALIDATION =====
-  const forms = document.querySelectorAll('form');
-  forms.forEach(form => {
-    form.addEventListener('submit', function(e) {
+  // ===== FORM SUBMISSION (FORMSPREE) =====
+  const contactForms = document.querySelectorAll('form.contact-form, form[action*="formspree.io"]');
+  contactForms.forEach(form => {
+    form.addEventListener('submit', async function(e) {
       e.preventDefault();
-      
-      // Simple validation
+
       const inputs = this.querySelectorAll('input, textarea');
       let isValid = true;
-      
       inputs.forEach(input => {
+        if (input.type === 'hidden' || input.classList.contains('honeypot')) return;
         if (!input.value.trim()) {
           input.classList.add('error');
           isValid = false;
@@ -164,16 +163,53 @@ document.addEventListener('DOMContentLoaded', function() {
         }
       });
 
-      if (isValid) {
-        console.log('Form submitted successfully');
-        this.reset();
-        // Show success message
-        const successMsg = document.createElement('div');
-        successMsg.className = 'success-message';
-        successMsg.textContent = '✓ Message sent successfully!';
-        this.appendChild(successMsg);
-        
-        setTimeout(() => successMsg.remove(), 3000);
+      if (!isValid) {
+        const status = this.querySelector('.form-status');
+        if (status) {
+          status.textContent = 'Please fill in all required fields.';
+          status.classList.remove('sr-only');
+          status.classList.add('visible', 'form-error');
+        }
+        return;
+      }
+
+      const status = this.querySelector('.form-status');
+      if (status) {
+        status.textContent = 'Sending message...';
+        status.classList.remove('sr-only', 'form-success', 'form-error');
+        status.classList.add('visible');
+      }
+
+      try {
+        const response = await fetch(this.action, {
+          method: this.method || 'POST',
+          headers: {
+            Accept: 'application/json'
+          },
+          body: new FormData(this)
+        });
+
+        if (response.ok) {
+          this.reset();
+          if (status) {
+            status.textContent = 'Message sent successfully. We will reply soon.';
+            status.classList.remove('form-error');
+            status.classList.add('form-success');
+          }
+        } else {
+          const errorText = 'Unable to send message right now. Please try again later.';
+          if (status) {
+            status.textContent = errorText;
+            status.classList.remove('form-success');
+            status.classList.add('form-error');
+          }
+        }
+      } catch (error) {
+        if (status) {
+          status.textContent = 'Network error while sending. Please try again.';
+          status.classList.remove('form-success');
+          status.classList.add('form-error');
+        }
       }
     });
   });
