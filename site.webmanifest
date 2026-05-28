@@ -1,0 +1,21 @@
+{
+  "name": "KUNAKA TECH",
+  "short_name": "KUNAKA TECH",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "theme_color": "#0a0e27",
+  "background_color": "#0a0e27",
+  "icons": [
+    {
+      "src": "/favicon.png",
+      "sizes": "32x32",
+      "type": "image/png"
+    },
+    {
+      "src": "/apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png"
+    }
+  ]
+}
