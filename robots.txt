@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://pkunaka1engineer.me/KUNAKATECH/sitemap.xml
+Sitemap: https://kunakatech.tech/sitemap.xml
