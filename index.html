@@ -31,6 +31,7 @@
   <meta name="geo.region" content="ZW">
   <meta name="geo.placename" content="Harare, Zimbabwe">
   <link rel="stylesheet" href="tesla-style.css">
+  <script src="mobile-menu.js" defer></script>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="icon" type="image/png" sizes="32x32" href="favicon.png">
   <link rel="icon" type="image/png" sizes="192x192" href="favicon.png">
@@ -500,31 +501,12 @@
 
   <!-- Navigation Functionality -->
   <script>
-    // Mobile Menu Toggle
-    const menuToggle = document.querySelector('.menu-toggle');
-    const navMenu = document.getElementById('primary-menu');
-    const navLinks = document.querySelectorAll('.nav-link');
-
-    if (menuToggle) {
-      menuToggle.addEventListener('click', () => {
-        menuToggle.classList.toggle('active');
-        navMenu.classList.toggle('active');
-      });
-
-      // Close menu when a link is clicked
-      navLinks.forEach(link => {
-        link.addEventListener('click', () => {
-          menuToggle.classList.remove('active');
-          navMenu.classList.remove('active');
-        });
-      });
-    }
-
     // Update active nav link based on scroll position
     const updateActiveNav = () => {
       const sections = document.querySelectorAll('section[id]');
       const scrollPosition = window.scrollY + 100;
 
+      const navLinks = document.querySelectorAll('.nav-link');
       sections.forEach(section => {
         const sectionTop = section.offsetTop;
         const sectionHeight = section.clientHeight;
@@ -541,7 +523,6 @@
 
     // Navbar scroll effect
     const nav = document.querySelector('nav');
-    let lastScrollY = 0;
 
     window.addEventListener('scroll', () => {
       if (window.scrollY > 50) {
@@ -549,7 +530,6 @@
       } else {
         nav.classList.remove('scrolled');
       }
-      lastScrollY = window.scrollY;
     });
 
     // Smooth scroll for anchor links
