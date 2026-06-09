@@ -11,6 +11,8 @@
   <link rel="canonical" href="https://kunakatech.tech/portfolio.html" />
   <link rel="stylesheet" href="tesla-style.css">
   <script src="mobile-menu.js" defer></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="icon" type="image/png" href="favicon.png"> 
   <link rel="apple-touch-icon" href="apple-touch-icon.png"> 
@@ -353,65 +355,7 @@
   <script src="tesla-interactions.js"></script>
 
   <!-- Comprehensive Scripts -->
-  <script>
-    // Project Filter Functionality
-    function filterProjects(category) {
-      const items = document.querySelectorAll('.portfolio-item');
-      const buttons = document.querySelectorAll('.filter-btn');
-      
-      // Update active button
-      buttons.forEach(btn => btn.classList.remove('active'));
-      event.target.classList.add('active');
-      
-      // Filter items
-      items.forEach(item => {
-        if (category === 'all' || item.dataset.category === category) {
-          item.classList.remove('hidden');
-          setTimeout(() => item.style.opacity = '1', 10);
-        } else {
-          item.style.opacity = '0';
-          setTimeout(() => item.classList.add('hidden'), 300);
-        }
-      });
-    }
-
-    // Chat Modal Functions
-    function openChatModal() { document.getElementById('chatModal').classList.add('active'); }
-    function closeChatModal() { document.getElementById('chatModal').classList.remove('active'); }
-    function appendChatMessage(sender, text) { const chatMessages = document.getElementById('chatMessages'); const msgDiv = document.createElement('div'); msgDiv.innerHTML = `<b>${sender}:</b> ${text}`; chatMessages.appendChild(msgDiv); chatMessages.scrollTop = chatMessages.scrollHeight; }
-    async function sendChatMessage() { 
-      const input = document.getElementById('chatInput'); 
-      const userMsg = input.value.trim(); 
-      if (!userMsg) return; 
-      appendChatMessage('You', userMsg); 
-      input.value = ''; 
-      appendChatMessage('AI', 'Thinking...'); 
-      setTimeout(() => { 
-        const chatMessages = document.getElementById('chatMessages'); 
-        chatMessages.lastChild.remove(); 
-        const msg = userMsg.toLowerCase(); 
-        let aiMsg = "That's a great question! Ask me about our projects, technologies, or how we can help your business!"; 
-        if (msg.match(/hello|hi|hey|greetings/)) { aiMsg = "Hello! Welcome to KUNAKA TECH. How can I help you today?"; } 
-        else if (msg.match(/kunaka|company|about/)) { aiMsg = "KUNAKA TECH is a professional software development company from Zimbabwe specializing in AI, ML, blockchain, and enterprise solutions."; } 
-        else if (msg.match(/project|portfolio|work/)) { aiMsg = "We have delivered projects across AI diagnostics, DeFi protocols, enterprise platforms, and more. Check our portfolio!"; } 
-        else if (msg.match(/technology|tech stack|tools/)) { aiMsg = "We specialize in TensorFlow, PyTorch, React, Node.js, Solidity, Kubernetes, and many other technologies."; } 
-        else if (msg.match(/ai|machine learning|ml/)) { aiMsg = "Our AI & ML expertise includes computer vision, NLP, neural networks, and quantum computing applications."; } 
-        else if (msg.match(/blockchain|web3|crypto|defi/)) { aiMsg = "We build smart contracts, DeFi protocols, and blockchain solutions using Solidity and Web3 technologies."; } 
-        else if (msg.match(/web|frontend|app/)) { aiMsg = "We create responsive web apps with React, Vue, Angular, and beautiful UX designs."; } 
-        else if (msg.match(/contact|hire|work with us|project/)) { aiMsg = "We'd love to work with you! Visit our contact page or email HRmanager@kunakatech.tech"; } 
-        else if (msg.match(/price|cost|budget/)) { aiMsg = "Our pricing varies based on project scope. Contact us for a custom quote!"; } 
-        else if (msg.match(/time|duration|how long/)) { aiMsg = "Most projects take 3-6 months. We work with agile methodology for faster delivery."; } 
-        else if (msg.match(/team|size|people/)) { aiMsg = "Our teams are 5-12 specialists including architects, ML engineers, and QA experts."; } 
-        else if (msg.match(/industries|sectors|verticals/)) { aiMsg = "We serve healthcare, finance, retail, education, manufacturing, and enterprise clients globally."; } 
-        else if (msg.match(/where|location|zimbabwe|africa/)) { aiMsg = "KUNAKA TECH is based in Zimbabwe with an international client base."; } 
-        else if (msg.match(/support|help|issue/)) { aiMsg = "We offer 24/7 support for all our clients. Contact our team for assistance!"; } 
-        else if (msg.match(/thanks|thank you|appreciate/)) { aiMsg = "You're welcome! Any other questions about KUNAKA TECH?"; } 
-        else if (msg.match(/bye|goodbye|later/)) { aiMsg = "Thanks for visiting! Feel free to reach out anytime."; } 
-        appendChatMessage('KUNAKA TECH AI', aiMsg); 
-      }, 700); 
-    }
-    document.getElementById('chatInput').addEventListener('keydown', function(e) { if (e.key === 'Enter') sendChatMessage(); });
-  </script>
+  
 
   <!-- SEO and Professional Design Scripts -->
 </body>

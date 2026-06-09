@@ -17,6 +17,8 @@
   <meta name="twitter:image" content="https://kunakatech.tech/kunaka_tech_logo%20(3).png">
   <link rel="stylesheet" href="tesla-style.css">
   <script src="mobile-menu.js" defer></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="icon" type="image/png" href="favicon.png">
   <link rel="apple-touch-icon" href="apple-touch-icon.png">
@@ -178,96 +180,7 @@
   <script src="chat-config.js"></script>
   <script src="tesla-interactions.js"></script>
 
-  <!-- Chatbot Script -->
-  <script>
-  function openChatModal() {
-    document.getElementById('chatModal').classList.add('active');
-  }
-  function closeChatModal() {
-    document.getElementById('chatModal').classList.remove('active');
-  }
-  function appendChatMessage(sender, text) {
-    const chatMessages = document.getElementById('chatMessages');
-    const msgDiv = document.createElement('div');
-    msgDiv.innerHTML = `<b>${sender}:</b> ${text}`;
-    chatMessages.appendChild(msgDiv);
-    chatMessages.scrollTop = chatMessages.scrollHeight;
-  }
-  async function sendChatMessage() {
-    const input = document.getElementById('chatInput');
-    const userMsg = input.value.trim();
-    if (!userMsg) return;
-    appendChatMessage('You', userMsg);
-    input.value = '';
-    appendChatMessage('AI', 'Thinking...');
-    setTimeout(() => {
-      const chatMessages = document.getElementById('chatMessages');
-      chatMessages.lastChild.remove();
-      const msg = userMsg.toLowerCase();
-      let aiMsg = "Sorry, we couldn't understand. Try asking about our services, projects, or background!";
-      if (msg.match(/hello|hi|hey|greetings/)) {
-        aiMsg = "Hello! How can I help you today?";
-      } else if (msg.match(/name|who are you|your name/)) {
-        aiMsg = "This is the KUNAKA TECH AI Assistant.";
-      } else if (msg.match(/zimbabwe|where are you from/)) {
-        aiMsg = "KUNAKA TECH originated in Zimbabwe.";
-      } else if (msg.match(/india|where do you live|location|based in/)) {
-        aiMsg = "KUNAKA TECH operates internationally, including India.";
-      } else if (msg.match(/project|projects|work on|what do you do/)) {
-        aiMsg = "We work on AI, quantum computing, blockchain, and web automation projects. Ask for details!";
-      } else if (msg.match(/skills|expertise|what can you do|technical skills|abilities/)) {
-        aiMsg = "Our team has expertise in neural networks, deep learning, computer vision, Python, JavaScript, Rust, quantum computing, blockchain, and WebAssembly.";
-      } else if (msg.match(/ai|machine learning|artificial intelligence/)) {
-        aiMsg = "We specialize in AI and machine learning, including neural networks and deep learning.";
-      } else if (msg.match(/quantum|quantum computing/)) {
-        aiMsg = "Quantum computing is a focus area; we work with quantum algorithms and research.";
-      } else if (msg.match(/blockchain|crypto|smart contract/)) {
-        aiMsg = "We have experience with blockchain technology and smart contracts.";
-      } else if (msg.match(/web automation|automation|automate/)) {
-        aiMsg = "We build web automation tools using Python and JavaScript.";
-      } else if (msg.match(/python/)) {
-        aiMsg = "Python is a primary language used by our team for AI and automation.";
-      } else if (msg.match(/javascript|typescript/)) {
-        aiMsg = "We use JavaScript and TypeScript for web development and automation.";
-      } else if (msg.match(/rust/)) {
-        aiMsg = "Rust is great for performance-critical applications!";
-      } else if (msg.match(/open source|github|contribute/)) {
-        aiMsg = "We contribute to open-source projects and love collaborating!";
-      } else if (msg.match(/mentor|mentoring|teach|help others/)) {
-        aiMsg = "We mentor and support junior engineers and share knowledge.";
-      } else if (msg.match(/contact|how can i contact you|reach you|get in touch/)) {
-        aiMsg = "You can reach us via the contact page!";
-      } else if (msg.match(/hobby|free time|interests|what do you like/)) {
-        aiMsg = "We enjoy exploring new tech, reading, and contributing to open source.";
-      } else if (msg.match(/portfolio|website|about this site/)) {
-        aiMsg = "This website showcases our work! Check out our projects page for more.";
-      } else if (msg.match(/education|study|background|school|degree/)) {
-        aiMsg = "Our team has a strong background in computer science and AI.";
-      } else if (msg.match(/future|plans|goals|what's next/)) {
-        aiMsg = "We're excited about the future of AI, quantum computing, and blockchain!";
-      } else if (msg.match(/thanks|thank you|thx|appreciate/)) {
-        aiMsg = "You're welcome! Let me know if you have more questions.";
-      } else if (msg.match(/bye|goodbye|see you|later/)) {
-        aiMsg = "Goodbye! Have a great day!";
-      } else if (msg.match(/i want to know more|tell me more|more info|details|info/)) {
-        aiMsg = "Sure! You can ask about our services, projects, team, or background.";
-      }
-      appendChatMessage('AI', aiMsg);
-    }, 700);
-  }
-  document.getElementById('chatInput').addEventListener('keydown', function(e) {
-    if (e.key === 'Enter') sendChatMessage();
-  });
-  // Wire chat UI controls without inline onclicks
-  (function(){
-    const bubble = document.querySelector('.ai-chat-bubble');
-    const closeBtn = document.getElementById('chatCloseBtn');
-    const sendBtn = document.getElementById('chatSendBtn');
-    if(bubble) bubble.addEventListener('click', openChatModal);
-    if(closeBtn) closeBtn.addEventListener('click', closeChatModal);
-    if(sendBtn) sendBtn.addEventListener('click', sendChatMessage);
-  })();
-  </script>
+  
 
   <!-- SEO and Professional Design Scripts -->
   <script>

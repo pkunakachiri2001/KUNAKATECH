@@ -1,1 +1,1 @@
-window.KUNAKA_CHAT_API_URL = 'https://kunaka-tech.vercel.app/api/chat';
+window.KUNAKA_CHAT_API_URL = '/api/chat';
