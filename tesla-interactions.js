@@ -278,50 +278,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   });
 
-  // ===== MOBILE MENU TOGGLE =====
-  const menuToggle = document.querySelector('.menu-toggle');
-  const navMenu = document.querySelector('nav ul');
-  const navLinks = navMenu ? navMenu.querySelectorAll('a') : [];
-  
-  if (menuToggle && navMenu) {
-    menuToggle.addEventListener('click', function(e) {
-      e.stopPropagation();
-      const isActive = navMenu.classList.toggle('active');
-      this.classList.toggle('active');
-      this.setAttribute('aria-expanded', isActive);
-    });
-
-    // Close menu when link is clicked
-    navLinks.forEach(link => {
-      link.addEventListener('click', function(e) {
-        // Don't close for hash links (scroll to sections)
-        if (!this.getAttribute('href').startsWith('#')) {
-          navMenu.classList.remove('active');
-          menuToggle.classList.remove('active');
-          menuToggle.setAttribute('aria-expanded', 'false');
-        }
-      });
-    });
-
-    // Close menu when clicking outside
-    document.addEventListener('click', function(e) {
-      if (!e.target.closest('nav') && navMenu.classList.contains('active')) {
-        navMenu.classList.remove('active');
-        menuToggle.classList.remove('active');
-        menuToggle.setAttribute('aria-expanded', 'false');
-      }
-    });
-
-    // Close menu on escape key
-    document.addEventListener('keydown', function(e) {
-      if (e.key === 'Escape' && navMenu.classList.contains('active')) {
-        navMenu.classList.remove('active');
-        menuToggle.classList.remove('active');
-        menuToggle.setAttribute('aria-expanded', 'false');
-        menuToggle.focus();
-      }
-    });
-  }
+  // ===== MOBILE MENU TOGGLE (Managed by mobile-menu.js) =====
 
   // ===== COUNTER ANIMATION =====
   const counters = document.querySelectorAll('[data-target]');

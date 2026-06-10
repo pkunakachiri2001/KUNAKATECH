@@ -104,6 +104,10 @@ p {
     transform: none;
     box-shadow: none;
   }
+
+  .mouse-trail {
+    display: none !important;
+  }
 }
 
 /* Make portfolio/contact content easier to read on smaller screens */

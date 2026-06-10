@@ -20,9 +20,10 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   }
 
-  // Mouse Trail Effect
+  // Mouse Trail Effect (disabled on touch/mobile devices to prevent interactions overlap)
   const mouseTrail = document.getElementById('mouseTrail');
-  if (mouseTrail) {
+  const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+  if (mouseTrail && !isTouchDevice) {
     let mouseX = 0;
     let mouseY = 0;
     let trailX = 0;
